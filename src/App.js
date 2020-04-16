@@ -1,24 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 
+// components
+import Post from './components/Post';
+
+// hooks
+import useForm from './hooks/useForm';
+import usePost from './hooks/usePost';
+
 function App() {
+  const [num, setNum] = useForm(1);
+  const post = usePost(num);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{post ? `Post ${post.id} Loaded` : 'Loading Post...'}</h1>
+      <form>
+        <label>Post Number:</label>
+        <input type="number" value={num} onChange={setNum} />
+      </form>
+      <br />
+      {post && <Post post={post} />}
     </div>
   );
 }
